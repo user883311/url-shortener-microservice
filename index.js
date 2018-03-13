@@ -30,6 +30,11 @@ async function countUrls() {
     return l;
 };
 
+async function getEntireUrlList() {
+    const r = await Url.find();
+    return r;
+};
+
 async function createUrl(index, longUrl) {
     const url = new Url({
         id: index,
@@ -80,10 +85,7 @@ app.get("/", (req, res) => {
         res.send(temp);
     })
 });
-async function getEntireUrlList() {
-    const r = await Url.find();
-    return r;
-};
+
 app.get("/:id", (req, res) => {
     const id = req.params.id;
     if (!getSpecificUrl(id)) {
