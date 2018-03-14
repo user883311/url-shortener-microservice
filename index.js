@@ -6,17 +6,18 @@ const Joi = require('joi');
 const opn = require('opn');
 
 const mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost/playground")
+const MONGODB_URI = process.env.MONGOLAB_URI;
+mongoose.connect(MONGODB_URI)
     .then(() => console.log("Connected to MongoDB"))
     .catch(err => console.error("Could not connect to MongoDB", err));
 
 // DATABASE MODEL
 //---------------
+const Url = mongoose.model("url", urlSchema); // class
 const urlSchema = new mongoose.Schema({
     id: Number,
     url: String
 });
-const Url = mongoose.model("url", urlSchema); // class
 
 // ADDRESSES
 //----------
@@ -98,7 +99,7 @@ app.get("/:id", (req, res) => {
             "original_url": longUrl[0].url,
             "short_url": `${hostname}:${port}/${id}`
         });
-        opn(longUrl[0].url);
+        opn(longUrl[0].url); // open in browser
     });
 });
 
