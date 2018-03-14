@@ -13,11 +13,11 @@ mongoose.connect(MONGODB_URI)
 
 // DATABASE MODEL
 //---------------
-const Url = mongoose.model("url", urlSchema); // class
 const urlSchema = new mongoose.Schema({
     id: Number,
     url: String
 });
+const Url = mongoose.model("url", urlSchema); // class
 
 // ADDRESSES
 //----------
