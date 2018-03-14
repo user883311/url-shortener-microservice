@@ -3,6 +3,7 @@
 const express = require("express"); // returns a function
 const app = express();
 const Joi = require('joi');
+const opn = require('opn');
 
 const mongoose = require('mongoose');
 mongoose.connect("mongodb://localhost/playground")
@@ -91,11 +92,15 @@ app.get("/:id", (req, res) => {
     if (!getSpecificUrl(id)) {
         return res.status(404).send("This micro URL is not in our database.");
     }
-    getSpecificUrl(id).then((temp) => {
-        res.send(temp);
-    })
-});
 
+    getSpecificUrl(id).then((longUrl) => {
+        res.send({
+            "original_url": longUrl[0].url,
+            "short_url": `${hostname}:${port}/${id}`
+        });
+        opn(longUrl[0].url);
+    });
+});
 
 // PORT
 app.listen(port, () => {
