@@ -1,5 +1,3 @@
-// which branch?
-
 // DEPENDENCIES
 //-------------
 const express = require("express"); // returns a function
@@ -8,7 +6,8 @@ const Joi = require('joi');
 const opn = require('opn');
 
 const mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost/playground")
+const MONGODB_URI = process.env.MONGOLAB_URI;
+mongoose.connect(MONGODB_URI)
     .then(() => console.log("Connected to MongoDB"))
     .catch(err => console.error("Could not connect to MongoDB", err));
 
