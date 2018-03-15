@@ -6,8 +6,7 @@ const Joi = require('joi');
 const opn = require('opn');
 
 const mongoose = require('mongoose');
-const MONGODB_URI = process.env.MONGOLAB_URI;
-mongoose.connect(MONGODB_URI)
+mongoose.connect("mongodb://localhost/playground")
     .then(() => console.log("Connected to MongoDB"))
     .catch(err => console.error("Could not connect to MongoDB", err));
 
