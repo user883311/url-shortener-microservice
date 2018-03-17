@@ -10,3 +10,5 @@ User story:
 - When I visit that shortened URL, I will also receive an JSON object with the long and shortened URLs in the response, and it will redirect me to my original link.
 
 Used: Node.js, Express, Joi, Opn and Mongoose / MongoDB. 
+
+Note: Disappointed at the fact that fcc guidelines call for a GET request to actually post data to db. 
