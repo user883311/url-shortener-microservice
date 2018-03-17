@@ -5,6 +5,9 @@ const app = express();
 const Joi = require('joi');
 const opn = require('opn');
 
+app.use(express.static("public"));
+
+
 const mongoose = require('mongoose');
 mongoose.connect("mongodb://localhost/playground")
     .then(() => console.log("Connected to MongoDB"))
@@ -56,6 +59,15 @@ async function getSpecificUrl(i) {
 // CRUD OPERATIONS
 //----------------
 
+app.use("/", (req, res, next) => {
+
+    console.log("app.use() called... ");
+    console.log("req= " + req.params);
+
+    next();
+});
+
+
 app.post("/*", (req, res) => {
     /* URL Validation. 
     -------------------
@@ -82,6 +94,7 @@ app.post("/*", (req, res) => {
 });
 
 app.get("/", (req, res) => {
+    console.log("app.get('/') called... ");
     getEntireUrlList().then((temp) => {
         res.send(temp);
     })
