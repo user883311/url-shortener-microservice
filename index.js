@@ -1,5 +1,6 @@
 // DEPENDENCIES
 //-------------
+
 const startupDebugger = require("debug")("app:startup");
 const config = require("config");
 const morgan = require("morgan");
@@ -8,6 +9,7 @@ const app = express();
 
 const dbInit = require("./routes/db");
 
+require("./startup/prod")(app);
 
 const urlsModule = require("./routes/urls");
 // const app_add = require("./routes/add");

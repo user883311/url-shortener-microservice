@@ -25,7 +25,7 @@ const port = process.env.PORT || config.get("default_port");
 // CREATE OPERATION
 //---------------
 
-router.get("/new/*", (req, res) => {
+router.get("/", (req, res) => {
     /* URL Validation. 
     -------------------
     Credit on this regex to validate URLs goes to Daveo

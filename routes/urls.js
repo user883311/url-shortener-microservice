@@ -9,7 +9,8 @@ const hostname = config.get("hostname");
 const port = process.env.PORT || config.get("default_port");
 
 const mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost/playground", function(){})
+const db_url= MONGOLAB_URI || "mongodb://localhost/playground";
+mongoose.connect(db_url, function(){})
     .then(() => {console.log("Connected to MongoDB")})
     .catch(err => console.error("Could not connect to MongoDB", err));
 
