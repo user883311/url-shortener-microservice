@@ -5,11 +5,12 @@ const opn = require('opn'); // open URIs
 const config = require("config"); // configuration JSON management
 const dbDebugger = require("debug")("app:db"); // debugger message management
 
-const hostname = config.get("hostname");
+const herokuURI="https://url-shortener-883311.herokuapp.com";
+const hostname = config.get("hostname") || herokuURI;
 const port = process.env.PORT || config.get("default_port");
 
 const mongoose = require('mongoose');
-MONGOLAB_URI="mongodb://username:0000@ds113799.mlab.com:13799/playground?authSource=username";
+MONGOLAB_URI="mongodb://username:0000@ds113799.mlab.com:13799/playground";
 const db_url=  MONGOLAB_URI || "mongodb://localhost/playground";
 console.log(`db_url = ${db_url}`);
 
