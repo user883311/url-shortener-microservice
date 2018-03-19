@@ -9,7 +9,10 @@ const hostname = config.get("hostname");
 const port = process.env.PORT || config.get("default_port");
 
 const mongoose = require('mongoose');
-const db_url= MONGOLAB_URI || "mongodb://localhost/playground";
+MONGOLAB_URI="mongodb://username:0000@ds113799.mlab.com:13799/playground";
+const db_url=  MONGOLAB_URI || "mongodb://localhost/playground";
+console.log(`db_url = ${db_url}`);
+
 mongoose.connect(db_url, function(){})
     .then(() => {console.log("Connected to MongoDB")})
     .catch(err => console.error("Could not connect to MongoDB", err));
