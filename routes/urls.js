@@ -51,7 +51,8 @@ router.get("/new/*", (req, res) => {
             "original_url": req.params['0'],
             "short_url": `${hostname}:${port}/${len}`
         });
-    });
+    })
+    .catch(err => console.error("Could not countUrls():", err));
 });
 
 router.get("/:id", (req, res) => {
