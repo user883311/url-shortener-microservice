@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Joi = require('joi'); // Object schema validation
-const opn = require('opn'); // open URIs
+// const opn = require('opn'); // open URIs
 const config = require("config"); // configuration JSON management
 const dbDebugger = require("debug")("app:db"); // debugger message management
 
@@ -68,7 +68,7 @@ router.get("/:id", (req, res) => {
             "original_url": longUrl[0].url,
             "short_url": `${hostname}:${port}/${id}`
         });
-        opn(longUrl[0].url); // open in browser
+        // opn(longUrl[0].url); // open in browser
     });
 });
 
