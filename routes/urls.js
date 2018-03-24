@@ -5,17 +5,19 @@ const opn = require('opn'); // open URIs
 const config = require("config"); // configuration JSON management
 const dbDebugger = require("debug")("app:db"); // debugger message management
 
-const herokuURI="https://url-shortener-883311.herokuapp.com";
+const herokuURI = "https://url-shortener-883311.herokuapp.com";
 const hostname = config.get("hostname") || herokuURI;
 const port = process.env.PORT || config.get("default_port");
 
 const mongoose = require('mongoose');
-MONGOLAB_URI="mongodb://username:0000@ds113799.mlab.com:13799/playground";
-const db_url=  MONGOLAB_URI || "mongodb://localhost/playground";
+MONGOLAB_URI = "mongodb://username:0000@ds113799.mlab.com:13799/playground";
+const db_url = MONGOLAB_URI || "mongodb://localhost/playground";
 console.log(`db_url = ${db_url}`);
 
-mongoose.connect(db_url, function(){})
-    .then(() => {console.log("Connected to MongoDB")})
+mongoose.connect(db_url, function () {})
+    .then(() => {
+        console.log("Connected to MongoDB")
+    })
     .catch(err => console.error("Could not connect to MongoDB", err));
 
 
@@ -45,14 +47,14 @@ router.get("/new/(*)", (req, res) => {
 
     // Add new URL to the database
     countUrls().then((len) => {
-        len = len.toString();
-        createUrl(len, req.params['0']);
-        res.send({
-            "original_url": req.params['0'],
-            "short_url": `${hostname}:${port}/${len}`
-        });
-    })
-    .catch(err => console.error("Could not countUrls():", err));
+            len = len.toString();
+            createUrl(len, req.params['0']);
+            res.send({
+                "original_url": req.params['0'],
+                "short_url": `${hostname}:${port}/${len}`
+            });
+        })
+        .catch(err => console.error("Could not countUrls():", err));
 });
 
 router.get("/:id", (req, res) => {
@@ -73,31 +75,47 @@ router.get("/:id", (req, res) => {
 // SUPPORTING FUNCTIONS
 //---------------------
 async function countUrls() {
-    const l = await Url.count();
-    console.log(l);
-    return l;
+    try {
+        const l = await Url.count();
+        console.log(l);
+        return l
+    } catch (err) {
+        console.log("error:", err);
+    }
 };
 
 async function getEntireUrlList() {
-    const r = await Url.find();
-    return r;
+    try {
+        const r = await Url.find();
+        return r;
+    } catch (err) {
+        console.log("error:", err);
+    }
 };
 
 async function createUrl(index, longUrl) {
-    const url = new Url({
-        id: index,
-        url: longUrl
-    });
-    const r = await url.save(); // asynchronous
+    try {
+        const url = new Url({
+            id: index,
+            url: longUrl
+        });
+        const r = await url.save(); // asynchronous
+    } catch (err) {
+        console.log("error:", err);
+    }
 };
 
 async function getSpecificUrl(i) {
-    i = i.toString();
-    const filter = new Object({
-        "id": i
-    })
-    const r = await Url.find(filter);
-    return r;
+    try {
+        i = i.toString();
+        const filter = new Object({
+            "id": i
+        })
+        const r = await Url.find(filter);
+        return r;
+    } catch (err) {
+        console.log("error:", err);
+    }
 };
 
 module.exports = router;
