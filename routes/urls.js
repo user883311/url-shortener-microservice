@@ -28,10 +28,10 @@ const urlSchema = new mongoose.Schema({
     url: String
 });
 const Url = mongoose.model("url", urlSchema); // class
-dbDebugger("Connected to the database...");
 
 
 router.get("/new/(*)", (req, res) => {
+    console.log("router.get(/new called...");
     /* URL Validation. 
     -------------------
     Credit on this regex to validate URLs goes to Daveo
@@ -63,13 +63,15 @@ router.get("/:id", (req, res) => {
         return res.status(404).send("This micro URL is not in our database.");
     }
 
-    getSpecificUrl(id).then((longUrl) => {
-        res.send({
-            "original_url": longUrl[0].url,
-            "short_url": `${hostname}:${port}/${id}`
-        });
-        // opn(longUrl[0].url); // open in browser
-    });
+    getSpecificUrl(id)
+        .then((longUrl) => {
+            res.send({
+                "original_url": longUrl[0].url,
+                "short_url": `${hostname}:${port}/${id}`
+            });
+            // opn(longUrl[0].url); // open in browser
+        })
+        .catch(err => console.log(`getSpecificUrl(${id}) error: ${err}`));
 });
 
 // SUPPORTING FUNCTIONS
@@ -80,7 +82,7 @@ async function countUrls() {
         console.log(l);
         return l
     } catch (err) {
-        console.log("error:", err);
+        console.log("countUrls() error:", err);
     }
 };
 
@@ -89,7 +91,7 @@ async function getEntireUrlList() {
         const r = await Url.find();
         return r;
     } catch (err) {
-        console.log("error:", err);
+        console.log("getEntireUrlList() error:", err);
     }
 };
 
@@ -101,7 +103,7 @@ async function createUrl(index, longUrl) {
         });
         const r = await url.save(); // asynchronous
     } catch (err) {
-        console.log("error:", err);
+        console.log("createUrl() error:", err);
     }
 };
 
@@ -114,7 +116,7 @@ async function getSpecificUrl(i) {
         const r = await Url.find(filter);
         return r;
     } catch (err) {
-        console.log("error:", err);
+        console.log("getSpecificUrl() error:", err);
     }
 };
 

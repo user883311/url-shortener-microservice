@@ -14,8 +14,8 @@ app.use("/", urlsModule);
 // CONFIGURATION
 if(app.get("env") === "development"){
     app.use(morgan("tiny"));
-    startupDebugger("Morgan enabled");
-    startupDebugger(`Application name : ${config.get("name")}`);
+    console.log("Morgan enabled");
+    console.log(`Application name : ${config.get("name")}`);
 };
 
 // ADDRESSES
