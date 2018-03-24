@@ -71,22 +71,34 @@ router.get("/new/(*)", async (req, res) => {
     //     .catch(err => console.error("Could not countUrls():", err));
 });
 
-router.get("/:id", (req, res) => {
-    const id = req.params.id;
-    if (!getSpecificUrl(id)) {
-        console.log("!getSpecificUrl");
-        return res.status(404).send("This micro URL is not in our database.");
-    }
+router.get("/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        if (!getSpecificUrl(id)) {
+            console.log("!getSpecificUrl");
+            return res.status(404).send("This micro URL is not in our database.");
+        }
 
-    getSpecificUrl(id)
-        .then((longUrl) => {
-            res.send({
-                "original_url": longUrl[0].url,
-                "short_url": `${hostname}:${port}/${id}`
-            });
-            opn(longUrl[0].url); // open in browser
-        })
-        .catch(err => console.log(`getSpecificUrl(${id}) error: ${err}`));
+        let u = await getSpecificUrl(id);
+        u = u[0].url;
+        res.send({
+            "original_url": u,
+            "short_url": `${hostname}:${port}/${id}`
+        });
+        opn(u); // open in browser
+    } catch (err) {
+        console.log("router.get(/new error:", err);
+        res.status(500).send("Internal server error. Adding the new URL failed.", err);
+    }
+    // getSpecificUrl(id)
+    //     .then((longUrl) => {
+    //         res.send({
+    //             "original_url": longUrl[0].url,
+    //             "short_url": `${hostname}:${port}/${id}`
+    //         });
+    //         opn(longUrl[0].url); // open in browser
+    //     })
+    //     .catch(err => console.log(`getSpecificUrl(${id}) error: ${err}`));
 });
 
 // SUPPORTING FUNCTIONS
