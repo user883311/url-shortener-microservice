@@ -29,7 +29,7 @@ const Url = mongoose.model("url", urlSchema); // class
 dbDebugger("Connected to the database...");
 
 
-router.get("/new/*", (req, res) => {
+router.get("/new/(*)", (req, res) => {
     /* URL Validation. 
     -------------------
     Credit on this regex to validate URLs goes to Daveo
