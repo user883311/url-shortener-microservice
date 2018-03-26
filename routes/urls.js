@@ -52,7 +52,7 @@ router.get("/new/(*)", async (req, res) => {
     const u = createUrl(len, req.params['0']);
     res.send({
         "original_url": req.params['0'],
-        "short_url": `${hostname}:${port}/${len}`
+        "short_url": `${herokuURI}/${len}`
     });
 });
 
@@ -67,7 +67,7 @@ router.get("/:id", async (req, res) => {
     u = u[0].url;
     res.send({
         "original_url": u,
-        "short_url": `${hostname}:${port}/${id}`
+        "short_url": `${herokuURI}/${id}`
     });
     opn(u); // open in browser
     // console.log("router.get(/new error:", err);
