@@ -70,8 +70,8 @@ router.get("/:id", async (req, res) => {
         "short_url": `${hostname}:${port}/${id}`
     });
     opn(u); // open in browser
-    console.log("router.get(/new error:", err);
-    res.status(500).send("Internal server error. Adding the new URL failed.", err);
+    // console.log("router.get(/new error:", err);
+    // res.status(500).send("Internal server error. Adding the new URL failed.", err);
 });
 
 
