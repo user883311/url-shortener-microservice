@@ -1,15 +1,20 @@
 // DEPENDENCIES
 //-------------
+require("express-async-errors"); // asyn errors handler
+const error = require("./middleware/error");
 const startupDebugger = require("debug")("app:startup");
 const config = require("config");
 const morgan = require("morgan");
 const express = require("express"); // returns a function
 const app = express();
+
 app.use(express.static("public"));
 require("./startup/prod")(app);
 
 const urlsModule = require("./routes/urls");
 app.use("/", urlsModule);
+
+app.use(error);
 
 // CONFIGURATION
 if(app.get("env") === "development"){
