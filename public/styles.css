@@ -1,0 +1,12 @@
+html{
+    background-color: rgb(30, 30, 30); 
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    color: rgb(286, 215, 119); 
+}
+
+h1, h2 {
+    color: rgb(206, 145, 120);
+}
