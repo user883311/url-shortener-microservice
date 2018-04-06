@@ -70,7 +70,7 @@ router.get("/:id", async (req, res) => {
         "original_url": u,
         "short_url": `${herokuURI}/${id}`
     });
-    // opn(u); // open in browser
+    opn(u); // open in browser
     open(u);
     // console.log("router.get(/new error:", err);
     // res.status(500).send("Internal server error. Adding the new URL failed.", err);
